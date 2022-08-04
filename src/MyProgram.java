@@ -28,11 +28,23 @@ public class MyProgram extends JFrame implements ActionListener {
 
 
     MyProgram() {
+        createRecordFileIfNotExist();
+
+        this.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        this.setFocusable(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        setupMainMenu();
+        this.setVisible(true);
+    }
+
+    private void createRecordFileIfNotExist() {
         File file = new File("src\\top3records.txt");
         if (!file.isFile()) {
             System.out.println("isFile");
             try {
-                file.createNewFile();
+                if(file.createNewFile())
+                    return;
                 try {
                     var writer = new FileWriter("src\\top3records.txt");
                     writer.write('0');
@@ -46,16 +58,6 @@ public class MyProgram extends JFrame implements ActionListener {
                 e.printStackTrace();
             }
         }
-
-
-
-        mainMenu = new JLabel();
-        this.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        this.setFocusable(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        setupMainMenu();
-        this.setVisible(true);
     }
 
     public void setupMainMenu() {
